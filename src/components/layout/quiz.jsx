@@ -331,7 +331,7 @@ export default function Quiz() {
 
             <div className="rounded-lg space-y-2">
               <h3 className="font-semibold text-blue-900">Informasi Quiz:</h3>
-              <div className="grid grid-cols-2 gap-2 text-sm text-blue-900">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-blue-900">
                 <p className="bg-blue-50 px-3 py-3 rounded">
                   Jumlah Pertanyaan: {questions.length}
                 </p>
@@ -369,18 +369,20 @@ export default function Quiz() {
     const percentage = (score / totalPossibleScore) * 100;
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 py-8 px-4">
+      <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 py-4 px-3 sm:py-8 sm:px-4">
         <div className="max-w-md mx-auto">
           <Card className="w-full mb-6">
             <CardHeader className="text-center">
-              <CardTitle className="text-2xl">Selamat! Quiz Selesai</CardTitle>
-              <CardDescription>
+              <CardTitle className="text-xl sm:text-2xl">
+                Selamat! Quiz Selesai
+              </CardTitle>
+              <CardDescription className="text-sm sm:text-base">
                 {playerName}, ini adalah hasil quiz kamu:
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6">
+            <CardContent className="space-y-4 sm:space-y-6">
               <div className="text-center">
-                <div className="text-4xl font-bold text-blue-600 mb-2">
+                <div className="text-3xl sm:text-4xl font-bold text-blue-600 mb-2">
                   {score} / {totalPossibleScore}
                 </div>
                 <Progress value={percentage} className="w-full" />
@@ -390,14 +392,14 @@ export default function Quiz() {
               </div>
 
               <div className="space-y-2">
-                <p className="text-center text-lg font-semibold">
+                <p className="text-center text-base sm:text-lg font-semibold">
                   {percentage === 100
                     ? "🎉 Hebat! Kamu paham betul tentang Basmalah!"
                     : percentage >= 60
                     ? "👍 Bagus! Latihan lagi ya."
                     : "💪 Ayo belajar lebih giat!"}
                 </p>
-                <p className="text-center text-sm text-gray-600">
+                <p className="text-center text-xs sm:text-sm text-gray-600">
                   {score === totalPossibleScore
                     ? "Sempurna! Semua jawaban benar!"
                     : `Kamu menjawab ${score / POINTS_PER_QUESTION} dari ${
@@ -407,7 +409,7 @@ export default function Quiz() {
               </div>
 
               {/* Preview Jawaban */}
-              <div className="space-y-4 grid grid-cols-1 gap-4 max-h-96 overflow-y-auto">
+              <div className="space-y-3 sm:space-y-4 grid grid-cols-1 gap-3 sm:gap-4 max-h-80 sm:max-h-96 overflow-y-auto">
                 <h3 className="text-lg font-semibold">Review Jawaban:</h3>
                 {questions.map((question, index) => {
                   const userAnswer = userAnswers[index];
@@ -418,25 +420,27 @@ export default function Quiz() {
                       key={question.id}
                       className="border-l-4 border-l-blue-500"
                     >
-                      <CardContent className="p-4">
-                        <div className="flex justify-between items-start mb-2">
-                          <div>
-                            <Badge variant="secondary" className="mb-2">
+                      <CardContent className="p-3 sm:p-4">
+                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2 gap-2">
+                          <div className="flex-1">
+                            <Badge variant="secondary" className="mb-2 text-xs">
                               Soal {index + 1}
                             </Badge>
-                            <p className="font-medium">{question.question}</p>
+                            <p className="font-medium text-sm sm:text-base">
+                              {question.question}
+                            </p>
                           </div>
                           <Badge
-                            variant={isCorrect ? "correct" : "destructive"}
-                            className="ml-2"
+                            variant={isCorrect ? "default" : "destructive"}
+                            className="sm:ml-2 self-start sm:self-auto text-xs"
                           >
                             {isCorrect ? "Benar" : "Salah"}
                           </Badge>
                         </div>
 
-                        <div className="space-y-2 text-sm">
-                          <div className="flex items-center">
-                            <span className="font-medium w-32">
+                        <div className="space-y-2 text-xs sm:text-sm">
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-0">
+                            <span className="font-medium sm:w-32">
                               Jawaban Anda:
                             </span>
                             <span
@@ -452,8 +456,8 @@ export default function Quiz() {
                             </span>
                           </div>
 
-                          <div className="flex items-center">
-                            <span className="font-medium w-32">
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-0">
+                            <span className="font-medium sm:w-32">
                               Jawaban Benar:
                             </span>
                             <span className="text-green-600">
@@ -463,7 +467,7 @@ export default function Quiz() {
                           </div>
 
                           {!isCorrect && userAnswer !== null && (
-                            <div className="mt-2 p-3 bg-yellow-50 rounded-lg">
+                            <div className="mt-2 p-2 sm:p-3 bg-yellow-50 rounded-lg text-xs sm:text-sm">
                               <span className="font-medium">Penjelasan: </span>
                               {question.explanation}
                             </div>
@@ -475,11 +479,17 @@ export default function Quiz() {
                 })}
               </div>
 
-              <div className="grid grid-cols-2 gap-4 pt-4">
-                <Button onClick={restartQuiz} variant="outline">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 pt-4">
+                <Button
+                  onClick={restartQuiz}
+                  variant="outline"
+                  className="w-full"
+                >
                   Ulangi Quiz
                 </Button>
-                <Button onClick={startNewQuiz}>Quiz Baru</Button>
+                <Button onClick={startNewQuiz} className="w-full">
+                  Quiz Baru
+                </Button>
               </div>
             </CardContent>
           </Card>
@@ -490,18 +500,18 @@ export default function Quiz() {
 
   // Quiz Screen
   return (
-    <div className="bg-gradient-to-br from-green-50 to-blue-50">
-      <div className="max-w-3xl mx-auto flex flex-col justify-center min-h-screen p-4">
+    <div className="bg-gradient-to-br from-green-50 to-blue-50 min-h-screen">
+      <div className="max-w-3xl mx-auto flex flex-col justify-center min-h-screen p-3 sm:p-4">
         <Card className="w-full shadow-none">
-          <CardHeader>
-            <div className="flex justify-between items-center mb-4">
-              <div className="px-4 py-2 flex items-center justify-center bg-gray-100 rounded-md text-sm">
+          <CardHeader className="p-4 sm:p-6">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
+              <div className="px-3 py-2 flex items-center justify-center bg-gray-100 rounded-md text-sm w-full sm:w-auto">
                 Soal {currentQuestion + 1} dari {questions.length}
               </div>
 
               {/* Time Remaining di kanan */}
-              <div className="flex items-center space-x-3 bg-blue-50 px-4 py-2 rounded-lg border border-blue-200">
-                <div className="text-right">
+              <div className="flex items-center space-x-2 sm:bg-blue-50 px-3 py-2 sm:rounded-lg sm:border sm:border-blue-200 w-full sm:w-auto justify-between sm:justify-start">
+                <div className="text-center sm:text-left w-full">
                   <p className="text-xs font-medium text-blue-900 mb-1">
                     Waktu Tersisa
                   </p>
@@ -516,19 +526,19 @@ export default function Quiz() {
               </div>
             </div>
 
-            <div className="flex items-start space-x-3 mb-4">
-              <CardTitle className="text-xl font-normal flex-1">
+            <div className="">
+              <CardTitle className="text-lg sm:text-xl font-normal">
                 {currentQuestion + 1}. {questions[currentQuestion].question}
               </CardTitle>
             </div>
           </CardHeader>
 
-          <CardContent className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
+          <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               {questions[currentQuestion].options.map((option, index) => (
                 <div
                   key={index}
-                  className={`p-4 border rounded-lg cursor-pointer transition-colors ${
+                  className={`p-3 sm:p-4 border rounded-lg cursor-pointer transition-colors ${
                     selectedAnswer === index
                       ? "border-blue-500 bg-blue-50"
                       : "border-gray-200 hover:border-gray-300"
@@ -537,17 +547,17 @@ export default function Quiz() {
                 >
                   <div className="flex items-center">
                     <div
-                      className={`w-6 h-6 rounded-full border mr-3 flex items-center justify-center ${
+                      className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full border mr-2 sm:mr-3 flex items-center justify-center flex-shrink-0 ${
                         selectedAnswer === index
                           ? "border-blue-500 bg-blue-500"
                           : "border-gray-400"
                       }`}
                     >
                       {selectedAnswer === index && (
-                        <div className="w-2 h-2 rounded-full bg-white"></div>
+                        <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white"></div>
                       )}
                     </div>
-                    <span className="font-medium">
+                    <span className="font-medium text-sm sm:text-base break-words">
                       {String.fromCharCode(65 + index)}. {option}
                     </span>
                   </div>
@@ -560,8 +570,9 @@ export default function Quiz() {
               <div className="flex justify-center">
                 <Button
                   onClick={handleSubmit}
-                  className="w-full max-w-xs"
+                  className="w-full sm:max-w-xs"
                   disabled={selectedAnswer === null}
+                  size="sm"
                 >
                   Submit Jawaban
                 </Button>
@@ -570,7 +581,7 @@ export default function Quiz() {
 
             {/* Navigasi setelah submit */}
             {answered && (
-              <div className="flex justify-between items-center pt-4 border-t">
+              <div className="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-0 pt-4 border-t">
                 <Button
                   variant="outline"
                   onClick={prevQuestion}
@@ -578,15 +589,17 @@ export default function Quiz() {
                     currentQuestion === 0 ||
                     userAnswers[currentQuestion - 1] !== null
                   }
+                  className="w-full sm:w-auto order-2 sm:order-1"
+                  size="sm"
                 >
                   Prev
                 </Button>
 
-                <div className="flex gap-1">
+                <div className="flex gap-1 order-1 sm:order-2 mb-3 sm:mb-0">
                   {questions.map((_, index) => (
                     <button
                       key={index}
-                      className={`w-8 h-8 rounded text-sm font-medium ${
+                      className={`w-7 h-7 sm:w-8 sm:h-8 rounded text-xs sm:text-sm font-medium ${
                         currentQuestion === index
                           ? "bg-blue-600 text-white"
                           : userAnswers[index] !== null
@@ -608,13 +621,19 @@ export default function Quiz() {
                 </div>
 
                 {currentQuestion === questions.length - 1 ? (
-                  <Button onClick={() => setShowResult(true)}>
+                  <Button
+                    onClick={() => setShowResult(true)}
+                    className="w-full sm:w-auto order-3"
+                    size="sm"
+                  >
                     Lihat Hasil
                   </Button>
                 ) : (
                   <Button
                     onClick={nextQuestion}
                     disabled={userAnswers[currentQuestion + 1] !== null}
+                    className="w-full sm:w-auto order-3"
+                    size="sm"
                   >
                     Next
                   </Button>
