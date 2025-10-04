@@ -12,66 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-
-const questions = [
-  {
-    id: 1,
-    question: "Apa bunyi bacaan Basmalah yang benar dan lengkap?",
-    options: [
-      "Allahu Akbar",
-      "Alhamdulillahirrabbil 'alamin",
-      "Astaghfirullahal`adzim",
-      "Bismillahirrahmanirrahim",
-    ],
-    answer: 3,
-    explanation:
-      'Bunyi bacaan Basmalah yang benar adalah "Bismillahirrahmanirrahim" yang berarti "Dengan nama Allah Yang Maha Pengasih, Maha Penyayang".',
-  },
-  {
-    id: 2,
-    question:
-      "Membaca Basmalah dianjurkan untuk dilakukan sebelum memulai perbuatan yang?",
-    options: ["Baik", "Biasa saja", "Buruk", "Tidak penting"],
-    answer: 0,
-    explanation:
-      "Membaca Basmalah sebelum memulai perbuatan baik akan mendatangkan berkah dan perlindungan dari Allah.",
-  },
-  {
-    id: 3,
-    question: "Kata Ar-Rahman dalam Basmalah memiliki arti?",
-    options: [
-      "Yang Maha Pengasih",
-      "Yang Maha Penyayang",
-      "Yang Maha Esa",
-      "Yang Maha Kuasa",
-    ],
-    answer: 0,
-    explanation:
-      "Ar-Rahman berarti 'Yang Maha Pengasih', menunjukkan sifat Allah yang sangat pengasih kepada seluruh makhluk-Nya.",
-  },
-  {
-    id: 4,
-    question:
-      "Ketika kita akan meminum segelas air, ucapan yang pertama kali harus kita baca adalah?",
-    options: ["Takbir", "Hamdalah", "Basmalah", "Tasbih"],
-    answer: 2,
-    explanation:
-      "Sebelum meminum air, kita dianjurkan untuk membaca Basmalah sebagai bentuk syukur dan permohonan berkah dari Allah.",
-  },
-  {
-    id: 5,
-    question: "Basmalah dibaca di awal surah Al-Qur'an apa?",
-    options: [
-      "Semua surah kecuali satu",
-      "Hanya surah Al-Fatihah",
-      "Surah Yasin",
-      "Tidak ada",
-    ],
-    answer: 0,
-    explanation:
-      "Basmalah dibaca di awal hampir semua surah Al-Qur'an, kecuali surah At-Taubah.",
-  },
-];
+import questions from "../layout/question";
 
 const TIME_PER_QUESTION = 30;
 const POINTS_PER_QUESTION = 20;
@@ -306,10 +247,12 @@ export default function Quiz() {
   if (showIntro) {
     return (
       <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-green-50 to-blue-50">
-        <Card className="w-full max-w-md shadow-none">
+        <Card className="w-full max-w-xl shadow-none">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl">Quiz Agama Islam Kelas 1</CardTitle>
-            <CardDescription className="text-lg">
+            <CardTitle className="text-xl sm:text-2xl">
+              Quiz Agama Islam Kelas 1
+            </CardTitle>
+            <CardDescription className="text-md sm:text-lg">
               Bab 3: Basmalah
             </CardDescription>
           </CardHeader>
@@ -370,7 +313,7 @@ export default function Quiz() {
 
     return (
       <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 py-4 px-3 sm:py-8 sm:px-4">
-        <div className="max-w-md mx-auto">
+        <div className="sm:max-w-xl max-w-md mx-auto">
           <Card className="w-full mb-6">
             <CardHeader className="text-center">
               <CardTitle className="text-xl sm:text-2xl">
@@ -431,7 +374,7 @@ export default function Quiz() {
                             </p>
                           </div>
                           <Badge
-                            variant={isCorrect ? "default" : "destructive"}
+                            variant={isCorrect ? "correct" : "destructive"}
                             className="sm:ml-2 self-start sm:self-auto text-xs"
                           >
                             {isCorrect ? "Benar" : "Salah"}
